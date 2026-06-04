@@ -1,0 +1,4 @@
+build/
+gdb.txt
+# format.sh is to automatically run clang-tidy on all files
+format.sh
