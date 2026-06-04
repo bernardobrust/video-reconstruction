@@ -1,4 +1,5 @@
 build/
 gdb.txt
+compile_commands.json
 # format.sh is to automatically run clang-tidy on all files
 format.sh
