@@ -67,8 +67,11 @@ $(BUILD_DIR)/%.c.o: %.c
 	mkdir -p $(dir $@)
 	$(CC) $(C_STD) $(C_COMMON) -c $< -o $@
 
-.PHONY: clean
+.PHONY: clean test
 clean:
 	rm -rf build/
+
+test: $(BUILD_DIR)/$(TARGET)
+	./$(BUILD_DIR)/$(TARGET)/$(TARGET)
 
 -include $(DEPS)

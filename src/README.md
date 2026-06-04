@@ -9,7 +9,9 @@ To build each of these you run
 make TARGET=$(target) MODE=$(mode)
 ```
 
-Where the target is either the inspector or the reconstructor, and mode is debug (the default), test (to run the tests) or relese (that enables optimizations and strips debug information)
+Where the target is either the inspector or the reconstructor, and mode is debug (the default), test (to run the tests) or relese (that enables optimizations and strips debug information).
+
+For running the tests you can run `make test TARGET=$(target) MODE=test`.
 
 The other direcotries:
 - `lib`: contains the test library
