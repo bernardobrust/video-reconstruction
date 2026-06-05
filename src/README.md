@@ -3,7 +3,7 @@ There are two main directories here:
 - `inspector`: a tool to visualize intra and inter prediction in video files.
 - `reconstructor`: the tool responsable for reconstructing from the videos
 
-To build each of these you run 
+To build each of these you run
 
 ``` sh
 make TARGET=$(target) MODE=$(mode)
