@@ -5,6 +5,7 @@
 - [ ] Write a version of the paper in Portuguese
 
 ### Code
-- [ ] Setup the project (build system)
+- [x] Setup the project (build system)
+- [ ] Build a simple inspector
 - [ ] Get testing data
 - [ ] Setup a data analysis pipeline

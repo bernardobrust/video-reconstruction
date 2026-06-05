@@ -9,12 +9,11 @@ To build each of these you run
 make TARGET=$(target) MODE=$(mode)
 ```
 
-Where the target is either the inspector or the reconstructor, and mode is debug (the default), test (to run the tests) or relese (that enables optimizations and strips debug information).
-
-For running the tests you can run `make test TARGET=$(target) MODE=test`.
+Where the target is either the inspector or the reconstructor, and mode is debug
+, test, or relese. For practical development purpuses, you can omit the mode
+when building for debug (`make TARGET=$(target)`) and testing (`make test TARGET
+=$(target)`).
 
 The other direcotries:
 - `lib`: contains the test library
 - `test_files`: contains the files for testing
-
-Others may be added in the future for data analysis.
