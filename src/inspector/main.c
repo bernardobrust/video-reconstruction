@@ -3,39 +3,46 @@
 #include <stdlib.h>
 #include <string.h>
 
-int main(void) {
+int main() {
     // Rutic X11 window
-    Display *d;
-    Window w;
-    XEvent e;
-
     const char *msg = "Hello, World!";
-    int s;
 
-    d = XOpenDisplay(NULL);
-    if (d == NULL) {
+    Display *display = XOpenDisplay(NULL);
+    // Nice error handling
+    if (display == NULL) {
       fprintf(stderr, "Cannot open display\n");
-      exit(1);
+      exit(EXIT_FAILURE);
     }
 
-    s = DefaultScreen(d);
-    w = XCreateSimpleWindow(d, RootWindow(d, s), 10, 10, 100, 100, 1,
-                           BlackPixel(d, s), WhitePixel(d, s));
+    int screen = DefaultScreen(display);
+    unsigned long black = BlackPixel(display, screen),
+        white = WhitePixel(display, screen);
+    Window window = XCreateSimpleWindow(display, DefaultRootWindow(display),
+                0, 0, 200, 300, 5, white, black);
 
-    XSelectInput(d, w, ExposureMask | KeyPressMask);
-    XMapWindow(d, w);
+    XSelectInput(display, window, ExposureMask | KeyPressMask);
+    XMapWindow(display, window);
 
+    GC graphics_context = XCreateGC(display, window, 0,0);
+    // White text
+    XSetForeground(display, graphics_context, WhitePixel(display, screen));
+
+    XEvent e;
     while (1) {
-        XNextEvent(d, &e);
+        XNextEvent(display, &e);
 
         if (e.type == Expose) {
-            XFillRectangle(d, w, DefaultGC(d, s), 20, 20, 10, 10);
-            XDrawString(d, w, DefaultGC(d, s), 10, 50, msg, strlen(msg));
+            XFillRectangle(display, window, graphics_context, 20, 20, 10, 10);
+            XDrawString(display, window, graphics_context, 10, 50, msg,
+                strlen(msg));
         }
 
-        if (e.type == KeyPress)break;
+        if (e.type == KeyPress) break;
     }
 
-    XCloseDisplay(d);
-    return 0;
+    // Clean up
+    XCloseDisplay(display);
+    XFreeGC(display, graphics_context);
+	XDestroyWindow(display, window);
+    return EXIT_SUCCESS;
 }

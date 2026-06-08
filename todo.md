@@ -6,6 +6,18 @@
 
 ### Code
 - [x] Setup the project (build system)
-- [ ] Build a simple inspector
 - [ ] Get testing data
 - [ ] Setup a data analysis pipeline
+
+### Inspector Needed
+- [x] Simple X11 window
+- [ ] Vulkan Integration
+- [ ] VKvideo
+- [ ] UI
+
+### Inspector Optional
+- [ ] Wayaland support without XWayland
+- [ ] Platform Layer via conditional compilation
+- [?] Windows Build System (Untested)
+- [ ] Windows platform layer
+- [ ] Test Windows support
