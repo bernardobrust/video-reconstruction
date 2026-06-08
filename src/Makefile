@@ -29,32 +29,37 @@ else
     SRCS := $(shell find $(TARGET) -name '*.c' ! -name '*.test.c')
 endif
 
-FLAGS := $(C_STD)
-FLAGS += $(addprefix -I,$(INC_DIRS))
-FLAGS += -MMD -MP
+OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
+DEPS := $(OBJS:.o=.d)
+
+CFLAGS := $(C_STD)
+CFLAGS += $(addprefix -I,$(INC_DIRS))
+CFLAGS += -MMD -MP
+
+EXTERNAL_LIBS := -lX11
 
 WARN_FLAGS    := -Wall -Wextra -Werror
 DBG_FLAGS     := -ggdb -O0 -fsanitize=address
 RELEASE_FLAGS := -Ofast -flto -march=native -DNDEBUG
 
-LD_FLAGS :=
+LDFLAGS :=
 
 ifeq ($(filter $(MODE),debug test),$(MODE))
-    FLAGS += $(WARN_FLAGS) $(DBG_FLAGS)
-    LD_FLAGS += -fsanitize=address
+    CFLAGS  += $(WARN_FLAGS) $(DBG_FLAGS)
+    LDFLAGS += -fsanitize=address
 else
-    FLAGS += $(RELEASE_FLAGS)
+    CFLAGS += $(RELEASE_FLAGS)
 endif
 
 BIN := $(BUILD_DIR)/$(TARGET)/$(TARGET)
 
 $(BIN): $(OBJS)
 	mkdir -p $(dir $@)
-	$(CC) $^ -o $@ $(LDFLAGS)
+	$(CC) $(OBJS) -o $@ $(LDFLAGS) $(EXTERNAL_LIBS)
 
-$(BUILD_DIR)/%.c.o: %.c
+$(BUILD_DIR)/%.o: %
 	mkdir -p $(dir $@)
-	$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY: clean test
 

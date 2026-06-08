@@ -1,0 +1,10 @@
+# Build objects
+build/
+
+# Debug information
+gdb.txt
+
+# Tex build
+*.aux
+*.log
+*.out
