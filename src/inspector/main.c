@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <btr_types.h>
+
 int main() {
     // Rutic X11 window
     const char *msg = "Hello, World!";
@@ -14,8 +16,8 @@ int main() {
       exit(EXIT_FAILURE);
     }
 
-    int screen = DefaultScreen(display);
-    unsigned long black = BlackPixel(display, screen),
+    i32 screen = DefaultScreen(display);
+    u64 black = BlackPixel(display, screen),
         white = WhitePixel(display, screen);
     Window window = XCreateSimpleWindow(display, DefaultRootWindow(display),
                 0, 0, 200, 300, 5, white, black);

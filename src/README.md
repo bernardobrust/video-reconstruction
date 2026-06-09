@@ -4,7 +4,7 @@ There are two main directories here:
 - `reconstructor`: the tool responsable for reconstructing from the videos
 
 The other directories:
-- `lib`: contains the test library
+- `lib`: contains the test library and beter data types
 - `test_files`: contains the files for testing
 
 ## Building on GNU + Linux
