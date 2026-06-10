@@ -5,6 +5,7 @@ C_STD := --std=c11
 MODE   ?= debug
 TARGET ?=
 
+# TODO: set OS target
 VALID_TARGETS := inspector reconstructor
 
 ifeq ($(filter clean,$(MAKECMDGOALS)),)

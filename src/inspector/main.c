@@ -1,33 +1,14 @@
-#include <X11/Xlib.h>
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-#include <btr_types.h>
+#include "platform.h"
 
 int main() {
-    // Rutic X11 window
-    const char *msg = "Hello, World!";
+    platform_state state;
+    if (!platform_init(&state, 0, 0, 300, 200)) return EXIT_FAILURE;
 
-    Display *display = XOpenDisplay(NULL);
-    // Nice error handling
-    if (display == NULL) {
-      fprintf(stderr, "Cannot open display\n");
-      exit(EXIT_FAILURE);
-    }
-
-    i32 screen = DefaultScreen(display);
-    u64 black = BlackPixel(display, screen),
-        white = WhitePixel(display, screen);
-    Window window = XCreateSimpleWindow(display, DefaultRootWindow(display),
-                0, 0, 200, 300, 5, white, black);
-
-    XSelectInput(display, window, ExposureMask | KeyPressMask);
-    XMapWindow(display, window);
-
-    GC graphics_context = XCreateGC(display, window, 0,0);
-    // White text
-    XSetForeground(display, graphics_context, WhitePixel(display, screen));
+// TODO: Port these latter, keep as example
+/*
+    const char* msg = "Hello, World!";
 
     XEvent e;
     while (1) {
@@ -41,10 +22,9 @@ int main() {
 
         if (e.type == KeyPress) break;
     }
+*/
 
-    // Clean up
-    XCloseDisplay(display);
-    XFreeGC(display, graphics_context);
-	XDestroyWindow(display, window);
+    platform_shutdown(&state);
+
     return EXIT_SUCCESS;
 }
