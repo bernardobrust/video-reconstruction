@@ -56,22 +56,23 @@ bool platform_update(platform_state* plat_state) {
     internal_state* state = (internal_state*)plat_state->internal_state;
 
     const char* msg = "Hello, World!";
+    bool running = true;
 
     XEvent e;
-    while (true) {
+    do {
         XNextEvent(state->display, &e);
 
         if (e.type == Expose) {
             XFillRectangle(state->display, state->window, state->graphics_context, 20, 20, 10, 10);
-            XDrawString(state->display, state->window, state->graphics_context, 10, 50, msg,
-                strlen(msg));
+            XDrawString(state->display, state->window, state->graphics_context, 10, 50, msg, strlen(msg));
         }
 
-        if (e.type == KeyPress) break;
-    }
+        // For now we quit if anything is pressed
+        running = !(e.type == KeyPress);
+    // Debug this latter, seams to work but matbe it's just because the window is static
+    } while (XPending(state->display) > 0);
 
-    // There's no way to fail for now
-    return true;
+    return running;
 }
 
 void platform_shutdown(platform_state* plat_state) {
