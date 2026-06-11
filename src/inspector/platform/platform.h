@@ -14,7 +14,7 @@ typedef struct platform_state {
     Platform functions implementations are dispatched according to the OS
     specified during compilation.
 
-    For now we just need windowing.
+    For now we just need windowing and events.
 */
 
 // All startup code including window creation
@@ -26,5 +26,7 @@ bool platform_init(
     i32 w,
     i32 h
 );
+
+bool platform_update(platform_state* plat_state);
 
 void platform_shutdown(platform_state* plat_state);

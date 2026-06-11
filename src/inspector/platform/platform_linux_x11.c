@@ -52,6 +52,28 @@ bool platform_init(
     return true;
 }
 
+bool platform_update(platform_state* plat_state) {
+    internal_state* state = (internal_state*)plat_state->internal_state;
+
+    const char* msg = "Hello, World!";
+
+    XEvent e;
+    while (1) {
+        XNextEvent(state->display, &e);
+
+        if (e.type == Expose) {
+            XFillRectangle(state->display, state->window, state->graphics_context, 20, 20, 10, 10);
+            XDrawString(state->display, state->window, state->graphics_context, 10, 50, msg,
+                strlen(msg));
+        }
+
+        if (e.type == KeyPress) break;
+    }
+
+    // There's no way to fail for now
+    return true;
+}
+
 void platform_shutdown(platform_state* plat_state) {
     internal_state* state = (internal_state*)plat_state->internal_state;
 
