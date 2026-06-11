@@ -27,7 +27,7 @@ Examples:
 A `build.bat` script is provided for Windows users. It requires `gcc` (e.g.,
 via MinGW-w64) to be in your PATH.
 
-**Note:** This script is currently **untested** as development is primarily
+> **Note:** This script is currently **untested** as development is primarily
 done on Linux. Additionally, the project does not have a windows layer yet.
 
 To build, run:
