@@ -21,10 +21,10 @@ typedef struct platform_state {
 // false return indicates fatal failure
 bool platform_init(
     platform_state* plat_state,
-    i32 x,
-    i32 y,
-    i32 w,
-    i32 h
+    u16 x,
+    u16 y,
+    u16 w,
+    u16 h
 );
 
 bool platform_update(platform_state* plat_state);

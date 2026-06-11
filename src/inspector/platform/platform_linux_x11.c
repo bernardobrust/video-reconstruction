@@ -19,10 +19,10 @@ typedef struct internal_state {
 // Rutic X11 window
 bool platform_init(
     platform_state* plat_state,
-    i32 x,
-    i32 y,
-    i32 w,
-    i32 h
+    u16 x,
+    u16 y,
+    u16 w,
+    u16 h
 ) {
     plat_state->internal_state = malloc(sizeof(internal_state));
     internal_state* state = (internal_state*)plat_state->internal_state;
@@ -56,23 +56,23 @@ bool platform_update(platform_state* plat_state) {
     internal_state* state = (internal_state*)plat_state->internal_state;
 
     const char* msg = "Hello, World!";
-    bool running = true;
 
     XEvent e;
     do {
         XNextEvent(state->display, &e);
 
+        // Placeholder rendering event
         if (e.type == Expose) {
             XFillRectangle(state->display, state->window, state->graphics_context, 20, 20, 10, 10);
             XDrawString(state->display, state->window, state->graphics_context, 10, 50, msg, strlen(msg));
         }
 
+        // Placeholder tick event
         // For now we quit if anything is pressed
-        running = !(e.type == KeyPress);
-    // Debug this latter, seams to work but matbe it's just because the window is static
-    } while (XPending(state->display) > 0);
+        if(e.type == KeyPress) return false;
+    } while (XPending(state->display) > 0); // Does this have to do with the 4 print?
 
-    return running;
+    return true;
 }
 
 void platform_shutdown(platform_state* plat_state) {

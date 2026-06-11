@@ -1,17 +1,10 @@
-#include <stdlib.h>
-#include <stdio.h>
-
-#include "platform.h"
+#include "inspector.h"
 
 int main() {
-    platform_state state;
-    if (!platform_init(&state, 0, 0, 300, 200)) return EXIT_FAILURE;
+    inspector_config config = {0, 0, 200, 300};
+    inspector_create(&config);
 
-    while (platform_update(&state)) {
-        // Update
-        // Render
-    }
+    inspector_run();
 
-    platform_shutdown(&state);
-    return EXIT_SUCCESS;
+    return inspector_shutdown();
 }

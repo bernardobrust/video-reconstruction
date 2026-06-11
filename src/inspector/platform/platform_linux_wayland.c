@@ -15,10 +15,10 @@ typedef struct internal_state {
 // Rutic Wayland window
 bool platform_init(
     platform_state* plat_state,
-    i32 x,
-    i32 y,
-    i32 w,
-    i32 h
+    u16 x,
+    u16 y,
+    u16 w,
+    u16 h
 ) {
     plat_state->internal_state = malloc(sizeof(internal_state));
     internal_state* state = (internal_state*)plat_state->internal_state;
