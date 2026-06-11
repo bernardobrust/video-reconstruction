@@ -1,6 +1,6 @@
 #include "platform.h"
 
-// TODO: compile based on makefile OS target
+#ifdef PLATFORM_LINUX_X11
 
 #include <X11/Xlib.h>
 #include <stdio.h>
@@ -58,7 +58,7 @@ bool platform_update(platform_state* plat_state) {
     const char* msg = "Hello, World!";
 
     XEvent e;
-    while (1) {
+    while (true) {
         XNextEvent(state->display, &e);
 
         if (e.type == Expose) {
@@ -82,3 +82,5 @@ void platform_shutdown(platform_state* plat_state) {
 	XDestroyWindow(state->display, state->window);
 	free(state);
 }
+
+#endif

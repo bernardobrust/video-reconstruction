@@ -2,8 +2,10 @@
 CC 	  := gcc
 C_STD := --std=c11
 
-MODE   ?= debug
-TARGET ?=
+MODE      ?= debug
+TARGET    ?=
+# Default as many wayland users have XWayland
+WINDOWING ?= x11
 
 # TODO: set OS target
 VALID_TARGETS := inspector reconstructor
@@ -37,7 +39,16 @@ CFLAGS := $(C_STD)
 CFLAGS += $(addprefix -I,$(INC_DIRS))
 CFLAGS += -MMD -MP
 
-EXTERNAL_LIBS := -lX11
+LIBS :=
+
+ifeq ($(WINDOWING), x11)
+    CFLAGS += -DPLATFORM_LINUX_X11
+    LIBS   += -lX11
+else ifeq ($(WINDOWING), wayland)
+    CFLAGS += -DPLATFORM_LINUX_WAYLAND
+else
+    $(error Unknown WINDOWING option: $(WINDOWING). Choose 'x11' or 'wayland')
+endif
 
 WARN_FLAGS    := -Wall -Wextra -Werror
 DBG_FLAGS     := -ggdb -O0 -fsanitize=address
@@ -56,11 +67,11 @@ BIN := $(BUILD_DIR)/$(TARGET)/$(TARGET)
 
 $(BIN): $(OBJS)
 	mkdir -p $(dir $@)
-	$(CC) $(OBJS) -o $@ $(LDFLAGS) $(EXTERNAL_LIBS)
+	$(CC) $(CFLAGS) $(LIBS) $(OBJS) -o $@ $(LDFLAGS)
 
 $(BUILD_DIR)/%.o: %
 	mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(LIBS) -c $< -o $@
 
 .PHONY: clean test
 
