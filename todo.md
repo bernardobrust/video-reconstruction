@@ -11,13 +11,13 @@
 
 ### Inspector Needed
 - [x] Simple X11 window
-- [ ] Vulkan Integration
-- [ ] VKvideo
+- [ ] Vulkan integration
+- [ ] Vulkan renderer
+- [ ] Libaom integration
 - [ ] UI
 
 ### Inspector Optional
-- [ ] Wayaland support without XWayland
+- [ ] Native ayaland support
 - [ ] Platform Layer via conditional compilation
-- [?] Windows Build System (Untested)
+- [ ] Windows Build System (Untested for now)
 - [ ] Windows platform layer
-- [ ] Test Windows support

@@ -7,7 +7,7 @@ The other directories:
 - `lib`: contains the test library and beter data types
 - `test_files`: contains the files for testing
 
-## Building inspector on GNU + Linux
+## Building inspector on GNU + Linux (Only X11 for now)
 Dependencies:
 - Lib X11 for window creation if targeting x11
 - Still TODO on wayland
