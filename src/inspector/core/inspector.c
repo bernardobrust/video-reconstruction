@@ -11,7 +11,7 @@
 typedef struct inspector_state {
     bool is_running;
     platform_state platform;
-    u16 x, y, w, h;
+    i16 x, y, w, h;
 } inspector_state;
 
 static bool initialized = false;
